@@ -1,0 +1,148 @@
+@import 'tailwindcss/base';
+@import 'tailwindcss/components';
+@import 'tailwindcss/utilities';
+
+/* Manual fix for the Right-Center Sticky Navbar */
+.sticky-nav-right {
+  position: fixed !important;
+  right: 1.5rem !important; /* right-6 */
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  z-index: 50 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 1.5rem !important; /* gap-6 */
+  padding: 1rem !important; /* p-4 */
+  border-radius: 9999px !important; /* rounded-full */
+  
+  /* Water UI Look */
+  background: rgba(255, 255, 255, 0.05) !important;
+  backdrop-filter: blur(12px) !important;
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  box-shadow: 0 0 20px rgba(0, 183, 255, 0.2) !important;
+}
+
+/* Fix for the Nav Dots */
+.nav-dot {
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.nav-dot.active {
+  background-color: #22d3ee; /* cyan-400 */
+  transform: scale(1.25);
+  box-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
+}
+
+:root {
+  font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+html {
+  background: #000;
+  scroll-behavior: smooth;
+}
+
+body {
+  margin: 0;
+  background: #000;
+  color: rgba(255, 255, 255, 0.92);
+  min-width: 320px;
+  overflow-x: hidden;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+/* Basic utility for full-viewport-height sections (used by panels 1, 4, 5) */
+.h-screen {
+  min-height: 100vh;
+}
+
+/* Water UI (right-side navbar) */
+.water-ui {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.55) 0%,
+    rgba(34, 211, 238, 0.22) 55%,
+    rgba(255, 255, 255, 0.18) 100%
+  );
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  box-shadow:
+    0 0 22px rgba(34, 211, 238, 0.18),
+    0 0 44px rgba(34, 211, 238, 0.10);
+  backdrop-filter: blur(18px) saturate(1.35);
+  /* WebKit fallback (saturate sometimes flagged by linters here) */
+  -webkit-backdrop-filter: blur(18px);
+}
+
+/* Panel 2 pinning / sticky behavior */
+.panel2-shell {
+  /* min-height: 100vh; */
+  position: relative;
+}
+
+.panel2-sticky {
+  position: sticky;
+  top: 0;
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Shell that defines where the Contact Me footer is sticky (Panels 2–5) */
+.contact-shell {
+  position: relative;
+}
+
+.contact-footer {
+  position: fixed; /* Keep it fixed to the bottom of the screen */
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  /* Use a background that ensures readability over content */
+  background: linear-gradient(to top, 
+    rgba(0, 0, 0, 1) 0%, 
+    rgba(0, 0, 0, 0.8) 70%, 
+    transparent 100%
+  );
+  backdrop-filter: blur(8px);
+  pointer-events: auto;
+}
+
+/* Update your CSS to keep it simple */
+section {
+  scroll-snap-align: start;
+  height: 100vh;
+}
