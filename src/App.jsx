@@ -91,7 +91,10 @@ const App = () => {
         sectionRefs.panel4,
         sectionRefs.panel5,
       ];
-      sectionTopsRef.current = refsInOrder.map((r) => (r.current ? r.current.offsetTop : 0));
+      const scrollTop = window.scrollY || document.documentElement.scrollTop;
+      sectionTopsRef.current = refsInOrder.map((r) =>
+        r.current ? r.current.getBoundingClientRect().top + scrollTop : 0
+      );
     };
 
     let raf = 0;
@@ -153,12 +156,10 @@ const App = () => {
     <div className="bg-black text-white min-h-screen selection:bg-cyan-400/40 overflow-x-hidden">
       {/* Glassmorphism Right Navbar */}
       <AnimatePresence>
-        {activePanel > 0 && (
           <motion.nav
             initial={{ x: 100 }}
             animate={{ x: 0 }}
             exit={{ x: 100 }}
-            // className="water-ui fixed right-4 md:right-6 top-1/2 -translate-y-1/2 z-50 flex flex-col gap-5 p-4 rounded-full"
             className='fixed right-6 top-1/2 -translate-y-1/2 z-50 
                     flex flex-col gap-6 p-4 rounded-full 
                     bg-white/5 backdrop-blur-md border border-white/10 
@@ -192,7 +193,6 @@ const App = () => {
               </button>
             ))}
           </motion.nav>
-        )}
       </AnimatePresence>
 
       {/* Main Content Sections */}
@@ -212,42 +212,42 @@ const App = () => {
         <div className="contact-shell relative">
           {/* Panel 2: one image that starts centered, then slides left (pinned/sticky) */}
           <section ref={sectionRefs.panel2} className="h-screen w-full relative bg-black snap-start overflow-hidden">
-          <div className="flex items-center h-full w-full max-w-7xl mx-auto px-10 relative">
-            
-            {/* Image: Vertically centered via top-1/2 and y: -50% */}
-            <motion.img
-              src={panel2Img}
-              alt="About Me"
-              className="absolute w-full max-w-[420px] max-h-[70vh] object-contain rounded-2xl shadow-2xl border border-white/10 bg-black/40"
-              style={{
-                left: isMdUp ? panel2ImgLeftMd : '50%',
-                x: isMdUp ? 0 : '-50%',
-                top: '50%',
-                y: '-50%', 
-              }}
-            />
+            <div className="flex items-center h-full w-full max-w-7xl mx-auto px-10 relative">
+              
+              {/* Image: Vertically centered via top-1/2 and y: -50% */}
+              <motion.img
+                src={panel2Img}
+                alt="About Me"
+                className="absolute w-full max-w-[420px] max-h-[70vh] object-contain rounded-2xl shadow-2xl border border-white/10 bg-black/40"
+                style={{
+                  left: isMdUp ? panel2ImgLeftMd : '50%',
+                  x: isMdUp ? 0 : '-50%',
+                  top: '50%',
+                  y: '-50%', 
+                }}
+              />
 
-            {/* Content: Two clean paragraphs */}
-            <motion.div
-              className="ml-auto w-full md:w-1/2 flex flex-col justify-center"
-              style={{ 
-                opacity: panel2ContentOpacity,
-                x: panel2ContentX 
-              }}
-            >
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">About Me</h2>
-              <div className="space-y-6 text-white/80">
-                <p className="text-lg leading-relaxed">
-                  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
-                </p>
-                <p className="text-base leading-relaxed text-white/60">
-                  Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-                </p>
-              </div>
-            </motion.div>
+              {/* Content: Two clean paragraphs */}
+              <motion.div
+                className="ml-auto w-full md:w-1/2 flex flex-col justify-center"
+                style={{ 
+                  opacity: panel2ContentOpacity,
+                  x: panel2ContentX 
+                }}
+              >
+                <h2 className="text-4xl md:text-5xl font-bold mb-6">About Me</h2>
+                <div className="space-y-6 text-white/80">
+                  <p className="text-lg leading-relaxed">
+                    Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                  </p>
+                  <p className="text-base leading-relaxed text-white/60">
+                    Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                  </p>
+                </div>
+              </motion.div>
 
-          </div>
-        </section>
+            </div>
+          </section>
 
           {/* Panel 4: Niche Audience */}
           <section
