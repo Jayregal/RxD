@@ -1,7 +1,9 @@
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, AnimatePresence, useScroll, useTransform, useMotionValue } from 'framer-motion';
-import { Instagram, Youtube, Mail } from 'lucide-react';
+import { FaFacebook, FaInstagram, FaRegEnvelope, FaYoutube } from "react-icons/fa";
+import { FaXTwitter } from "react-icons/fa6"; // The updated 'X' logo
 import myVid from './assets/test_vid.mp4';
+// import logoIntro from './assets/Logo_Intro.mov';
 import panel2Img from './assets/WhatsApp Image 2026-02-17 at 15.26.45.jpeg';
 
 const App = () => {
@@ -16,7 +18,7 @@ const App = () => {
     panel0: useRef(null),
     panel2: useRef(null),
     panel4: useRef(null),
-    panel5: useRef(null),
+    // panel5: useRef(null),
   };
   const sectionTopsRef = useRef([]);
 
@@ -37,13 +39,13 @@ const App = () => {
         if (e.deltaY > 0 && current < 1) {
           e.preventDefault();
           setIsLocked(true);
-          internalProgress.set(Math.min(current + 0.08, 1));
+          internalProgress.set(Math.min(current + 0.04, 1));
         } 
         // If scrolling up and not back at start
         else if (e.deltaY < 0 && current > 0) {
           e.preventDefault();
           setIsLocked(true);
-          internalProgress.set(Math.max(current - 0.08, 0));
+          internalProgress.set(Math.max(current - 0.04, 0));
         } 
         else {
           setIsLocked(false);
@@ -89,7 +91,7 @@ const App = () => {
         sectionRefs.panel0,
         sectionRefs.panel2,
         sectionRefs.panel4,
-        sectionRefs.panel5,
+        // sectionRefs.panel5,
       ];
       const scrollTop = window.scrollY || document.documentElement.scrollTop;
       sectionTopsRef.current = refsInOrder.map((r) =>
@@ -153,7 +155,7 @@ const App = () => {
   };
 
   return (
-    <div className="bg-black text-white min-h-screen selection:bg-cyan-400/40 overflow-x-hidden">
+    <div className="bg-black text-white min-h-screen selection:bg-cyan-400/40 overflow-x-hidden relative">
       {/* Glassmorphism Right Navbar */}
       <AnimatePresence>
           <motion.nav
@@ -169,7 +171,7 @@ const App = () => {
               { id: 0, label: 'Intro', ref: sectionRefs.panel0 },
               { id: 1, label: 'About', ref: sectionRefs.panel2 },
               { id: 2, label: 'Audience', ref: sectionRefs.panel4 },
-              { id: 3, label: 'Collaborators', ref: sectionRefs.panel5 },
+              // { id: 3, label: 'Collaborators', ref: sectionRefs.panel5 },
             ].map((item) => (
               <button
                 key={item.id}
@@ -284,7 +286,7 @@ const App = () => {
           </section>
 
           {/* Panel 5: Collaborators */}
-          <section
+          {/* <section
             ref={sectionRefs.panel5}
             className="h-screen snap-start pb-24" // Added padding-bottom so content isn't hidden by footer
             style={{
@@ -318,7 +320,7 @@ const App = () => {
                 ))}
               </div>
             </div>
-          </section>
+          </section> */}
 
           {/* Sticky Footer */}
           <AnimatePresence>
@@ -331,9 +333,44 @@ const App = () => {
               >
                 <span className="font-medium tracking-widest uppercase text-sm md:text-base">Contact Me</span>
                 <div className="flex gap-6">
-                  <a href="https://instagram.com" target="_blank" rel="noreferrer" className="hover:text-pink-400 transition-colors"><Instagram size={24} /></a>
-                  <a href="https://youtube.com" target="_blank" rel="noreferrer" className="hover:text-red-400 transition-colors"><Youtube size={24} /></a>
-                  <a href="mailto:hello@example.com" className="hover:text-cyan-300 transition-colors"><Mail size={24} /></a>
+                  <a 
+                    href="https://x.com/r_xtremedigital" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-400 transition-colors"
+                  >
+                    <FaXTwitter size={24} />
+                  </a>
+                  <a 
+                    href="https://www.youtube.com/@r.xtreme.digital" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-red-600 transition-colors"
+                  >
+                    <FaYoutube size={24} />
+                  </a>
+                  <a 
+                    href="mailto:r.xtreme.digital@gmail.com"
+                    className="hover:text-cyan-300 transition-colors"
+                  >
+                    <FaRegEnvelope size={24} />
+                  </a>
+                  <a 
+                    href="https://www.instagram.com/r.xtreme.digital" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-pink-400 transition-colors"
+                  >
+                    <FaInstagram size={24} />
+                  </a>
+                  <a 
+                    href="https://www.facebook.com/r.xtreme.digital" 
+                    target="_blank" 
+                    rel="noopener noreferrer"
+                    className="hover:text-blue-600 transition-colors"
+                  >
+                    <FaFacebook size={24} />
+                  </a>
                 </div>
               </motion.footer>
             )}
