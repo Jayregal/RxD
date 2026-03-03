@@ -2,42 +2,6 @@
 @import 'tailwindcss/components';
 @import 'tailwindcss/utilities';
 
-/* Manual fix for the Right-Center Sticky Navbar */
-.sticky-nav-right {
-  position: fixed !important;
-  right: 1.5rem !important; /* right-6 */
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 50 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  gap: 1.5rem !important; /* gap-6 */
-  padding: 1rem !important; /* p-4 */
-  border-radius: 9999px !important; /* rounded-full */
-  
-  /* Water UI Look */
-  background: rgba(255, 255, 255, 0.05) !important;
-  backdrop-filter: blur(12px) !important;
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.1) !important;
-  box-shadow: 0 0 20px rgba(0, 183, 255, 0.2) !important;
-}
-
-/* Fix for the Nav Dots */
-.nav-dot {
-  width: 0.75rem;
-  height: 0.75rem;
-  border-radius: 50%;
-  background-color: rgba(255, 255, 255, 0.2);
-  transition: all 0.3s ease;
-}
-
-.nav-dot.active {
-  background-color: #22d3ee; /* cyan-400 */
-  transform: scale(1.25);
-  box-shadow: 0 0 15px rgba(34, 211, 238, 0.8);
-}
-
 :root {
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif;
   line-height: 1.5;
