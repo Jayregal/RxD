@@ -16,7 +16,7 @@ import { FaXTwitter } from "react-icons/fa6"; // The updated 'X' logo
 // import myVid from './assets/test_vid.mp4';
 import logo_intro from "./assets/Logo intro.mp4";
 // import panel2Img from './assets/WhatsApp Image 2026-02-17 at 15.26.45.jpeg';
-import r_pic from "./assets/RxD.jpeg";
+import r_pic from "./assets/RxD.png";
 import { IoVolumeHighOutline, IoVolumeMuteOutline } from "react-icons/io5";
 
 const App = () => {
@@ -186,12 +186,16 @@ const App = () => {
   const isMobile = typeof window !== "undefined" && window.innerWidth < 768;
 
   // This moves the entire group (Image + Text) up on mobile
+  // const mobileGroupY = useTransform(
+  //   internalProgress,
+  //   [0, 0.5, 1],
+  //   ["0%", "-20%", "-20%"],
+  // );
   const mobileGroupY = useTransform(
     internalProgress,
-    [0, 0.5, 1],
-    ["0%", "-20%", "-20%"],
+    [0, 0.6, 1], // Wait slightly longer, then move
+    ["15%", "-25%", "-25%"], // Start lower, end higher
   );
-
   const panel2ContentOpacity = useTransform(
     internalProgress,
     [0, 0.5, 0.8],
@@ -418,9 +422,6 @@ const App = () => {
             ref={sectionRefs.panel0}
             className="h-screen w-full relative overflow-hidden snap-start flex items-center justify-center bg-black"
           >
-            {/* Dynamic Background Glow for Mobile */}
-            <div className="absolute inset-0 z-0 md:hidden bg-[radial-gradient(circle_at_center,_rgba(255,0,0,0.15)_0%,_transparent_70%)]" />
-
             <video
               ref={videoRef}
               autoPlay
@@ -428,7 +429,8 @@ const App = () => {
               muted
               playsInline
               // Improved responsive sizing for iPad/Mobile
-              className={`relative z-10 w-full ${isStacked ? "max-h-[60vh] object-contain scale-90" : "h-full object-cover"}`}
+              className={`relative z-10 w-full ${isStacked ? "max-h-[55vh] object-contain scale-110" : "h-full object-cover"}`}
+              // className={`relative z-10 w-full ${isStacked ? "max-h-[60vh] object-contain scale-90" : "h-full object-cover"}`}
             >
               <source src={logo_intro} type="video/mp4" />
             </video>
@@ -442,14 +444,17 @@ const App = () => {
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               onClick={toggleMute}
-              className="absolute bottom-10 right-10 z-20 flex items-center gap-3 px-5 py-3 
-                      rounded-full bg-white/5 backdrop-blur-md border border-white/10 
-                      shadow-[0_0_20px_rgba(0,183,255,0.1)] hover:border-cyan-400/50 transition-colors"
+              // className="absolute bottom-10 right-10 z-20 flex items-center gap-3 px-5 py-3 
+              //         rounded-full bg-white/5 backdrop-blur-md border border-white/10 
+              //         shadow-[0_0_20px_rgba(0,183,255,0.1)] hover:border-cyan-400/50 transition-colors"
+              className="absolute bottom-12 right-6 md:bottom-10 md:right-10 z-30 
+                      flex items-center gap-3 px-4 py-3 
+                      rounded-full backdrop-blur-xl"
             >
               {/* <span className="text-xs tracking-[0.2em] uppercase font-light text-white/70">
               {isMuted ? "Sound Off" : "Sound On"}
             </span> */}
-              <div className="text-cyan-400">
+              <div className="text-zinc-400">
                 {isMuted ? (
                   <IoVolumeMuteOutline size={20} />
                 ) : (
@@ -503,11 +508,13 @@ const App = () => {
           </section> */}
             <section
               ref={sectionRefs.panel2}
-              className="h-screen w-full relative bg-black overflow-hidden flex items-center justify-center"
+              // className="h-screen w-full relative bg-black overflow-hidden flex items-center justify-center"
+              className="h-[100dvh] w-full relative bg-black overflow-hidden flex items-center justify-center"
             >
               <motion.div
                 // Dynamic layout: column for Mobile/iPad Pro, row for Desktop
-                className={`flex flex-col ${isStacked ? "items-center text-center" : "md:flex-row items-center"} w-full max-w-7xl mx-auto px-6 md:px-10`}
+                // className={`flex flex-col ${isStacked ? "items-center text-center" : "md:flex-row items-center"} w-full max-w-7xl mx-auto px-6 md:px-10`}
+                className={`flex flex-col ${isStacked ? "items-center text-center" : "md:flex-row items-center"} w-full max-w-7xl mx-auto px-6 pb-[10vh] md:pb-0`}
                 style={{
                   y: isStacked ? stackedGroupY : 0,
                 }}
@@ -515,24 +522,24 @@ const App = () => {
                 <motion.img
                   src={r_pic}
                   alt="About Me"
-                  // Image behaves as part of the flow in stacked layout, absolute in desktop
-                  className={`rounded-2xl object-contain shadow-2xl ${
+                  className={`${
                     isStacked
-                      ? "w-[70%] max-w-[400px] mb-8"
+                      ? "w-[65%] max-w-[240px] mb-4 shadow-xl shadow-cyan-500/10" // Smaller max-width on mobile
                       : "absolute w-full max-w-[420px]"
-                  }`}
+                  } rounded-2xl object-contain shadow-2xl`}
                   style={{
                     position: isStacked ? "relative" : "absolute",
                     left: isStacked ? "auto" : panel2ImgLeft,
                     x: isStacked ? 0 : "-50%",
                     top: isStacked ? "auto" : "50%",
                     y: isStacked ? 0 : "-50%",
-                    maskImage: isStacked
-                      ? "linear-gradient(to bottom, black 80%, transparent 100%)"
-                      : "none",
-                    WebkitMaskImage: isStacked
-                      ? "linear-gradient(to bottom, black 80%, transparent 100%)"
-                      : "none",
+                    // Mask helps blend the bottom of the image into the text area
+                    // maskImage: isStacked
+                    //   ? "linear-gradient(to bottom, black 70%, transparent 100%)"
+                    //   : "none",
+                    // WebkitMaskImage: isStacked
+                    //   ? "linear-gradient(to bottom, black 70%, transparent 100%)"
+                    //   : "none",
                   }}
                 />
 
@@ -547,17 +554,22 @@ const App = () => {
                     About Me
                   </h2>
 
-                  {isStacked && (
+                  {/* {isStacked && (
                     <div className="w-16 h-[1px] bg-cyan-500/50 mx-auto mb-6" />
+                  )} */}
+                  {isStacked && (
+                    <div className="w-12 h-[1px] bg-cyan-500/50 mx-auto mb-4" />
                   )}
 
-                  <div
-                    className={`space-y-4 text-white/70 ${isStacked ? "px-4" : ""}`}
-                  >
-                    <p className="text-lg md:text-xl leading-relaxed">
+                  <div className="space-y-3 text-white/70">
+                    <p 
+                    // className="text-sm md:text-lg leading-relaxed max-w-[90%] mx-auto md:mx-0"
+                    className={`text-sm md:text-lg leading-relaxed max-w-[90%] mx-auto md:mx-0 
+                      ${isStacked ? "line-clamp-4" : ""}`}>
                       Lorem ipsum dolor sit amet, consectetur adipiscing elit,
                       sed do eiusmod tempor incididunt ut labore et dolore magna
                       aliqua.
+                      {/* If the text is still too long, use 'line-clamp-4' here to test */}
                     </p>
                   </div>
                 </motion.div>
